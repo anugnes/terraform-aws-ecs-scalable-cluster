@@ -64,7 +64,7 @@ resource "aws_launch_configuration" "ecs_conf" {
 resource "aws_autoscaling_group" "ecs" {
   name                 = "${var.cluster_name}-ASG"
   launch_configuration = "${aws_launch_configuration.ecs_conf.name}"
-  vpc_zone_identifier  = ["${element(split(",", var.subnet_id), count.index)}"]
+  vpc_zone_identifier  = ["${split(",", var.subnet_id)}"]
   max_size             = "${var.cluster_max_size}"
   min_size             = "${var.cluster_min_size}"
 }
